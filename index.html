@@ -3,16 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XMLHttpRequest</title>
+    <title>Document</title>
 </head>
 <body>
-    <main class="container">
-        <h1>XMLHttpRequest Example</h1>
-        <p>This is a simple example of using XMLHttpRequest to send a POST request.</p>
-    </main>
-    <section>
-        
-    </section>
-    <script src="./script.js"></script>
+
+    <input type="text" id="firstName" placeholder="First Name">
+    <input type="text" id="favoriteFood" placeholder="Favorite Food">
+    <button id="submitBtn">submit</button>
+
+    <script>
+        let firstNameInput = document.querySelector("#firstName");
+        let favoriteFoodInput = document.querySelector("#favoriteFood");
+        let submitBtn = document.querySelector("#submitBtn");
+
+        submitBtn.addEventListener("click", function() {
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    console.log(JSON.parse(xhttp.responseText));
+                }
+            };
+
+            let userData = {
+                firstName: firstNameInput.value,
+                favoriteFood: favoriteFoodInput.value
+            };
+            console.log(userData);
+
+            let jsonString = JSON.stringify(userData);
+            console.log(jsonString);
+
+            xhttp.open("POST", "<Await URL Link>", true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+
+            xhttp.send(jsonString);
+        });
+    </script>
 </body>
 </html>
